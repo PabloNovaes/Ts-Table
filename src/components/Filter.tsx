@@ -11,18 +11,27 @@ import {
 import { Product } from "@/data";
 import { ArrowDown, ArrowUp } from "lucide-react"
 
+interface OrderBy {
+    [key: string]: (products: Product[]) => Product[];
+}
 
-export function Filter(props) {
+interface FilterProps {
+    products: Product[];
+    onOrderProducts: (orderedProducts: Product[]) => void;
+}
 
-    const sortMethods = {
-        letterAtoZ(products: Product[]) {
+export function Filter(props: FilterProps) {
+    const { products, onOrderProducts } = props
+
+    const orderBy: OrderBy = {
+        alfabeticOrder(products: Product[]) {
             return products.sort((a, b) => {
                 return a.name.localeCompare(b.name);
             });
         },
-        letterZtoA(products: Product[]) {
+        contraireAlfabeticOrder(products: Product[]) {
             return products.sort((a, b) => {
-                return a.name.localeCompare(b.name);
+                return b.name.localeCompare(a.name);
             });
         },
         smallTolarge(products: Product[]) {
@@ -35,36 +44,39 @@ export function Filter(props) {
                 return Number(b.price) - Number(a.price)
             });
         }
+
     }
 
     return (
-        <Select>
+        <Select onValueChange={(event) => {
+            return onOrderProducts([...orderBy[event](products)])
+        }}>
             <SelectTrigger className="w-full mb-2">
                 <SelectValue placeholder="Filtar" />
             </SelectTrigger>
             <SelectContent>
-                <SelectGroup>
+                <SelectGroup >
                     <SelectLabel>
                         Selecione um metodo de filtragem
                     </SelectLabel>
-                    <SelectItem value="Maior valor">
+                    <SelectItem value="largeToSmall" >
                         <p className="flex gap-2 items-center">
                             Maior valor
                             <ArrowUp strokeWidth={2} width={16} />
                         </p>
                     </SelectItem>
-                    <SelectItem value="Menor valor">
+                    <SelectItem value="smallTolarge">
                         <p className="flex gap-2 items-center">
                             Menor valor
                             <ArrowDown strokeWidth={2} width={16} />
                         </p>
                     </SelectItem>
-                    <SelectItem value="De A a Z">
+                    <SelectItem value="alfabeticOrder">
                         <p className="flex gap-2 items-center">
                             A-Z
                         </p>
                     </SelectItem>
-                    <SelectItem value="De Z a A">
+                    <SelectItem value="contraireAlfabeticOrder">
                         <p className="flex gap-2 items-center">
                             Z-A
                         </p>
