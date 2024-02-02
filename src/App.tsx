@@ -15,14 +15,14 @@ import {
 
 import { ThemeProvider } from "@/components/theme-provider"
 
-import { Toggle } from "./components/ui/toggle"
-import { Header } from "./components/Header"
 import { useState } from "react"
+import { Header } from "./components/Header"
+import { Toggle } from "./components/ui/toggle"
 
-import { Product, fixedProducts } from "./data"
 import { Badge } from "@/components/ui/badge"
 import { Filter } from "./components/Filter"
 import { SwitchTheme } from "./components/SwitchTheme"
+import { Product, fixedProducts } from "./data"
 
 export function App() {
   const [products, setProducts] = useState(fixedProducts)
@@ -67,7 +67,7 @@ export function App() {
               </TableRow>
             </TableHeader>
             <TableBody className="text-secondary-foreground">
-              {products.map(product => {
+              {products.length > 0 && products.map(product => {
                 const { id, name, price } = product
                 const productValue = parseFloat(String(price))
                 return (
@@ -88,6 +88,7 @@ export function App() {
             </TableBody>
           </Table>
         </div>
+        {products.length == 0 && <h1 className="mx-auto mt-2 text-muted-foreground">Nenhum registro encontrado</h1>}
       </div>
     </ThemeProvider>
   )
