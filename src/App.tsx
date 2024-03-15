@@ -25,10 +25,16 @@ import { SwitchTheme } from "./components/SwitchTheme"
 import { Product, fixedProducts } from "./data"
 
 export function App() {
-  const [products, setProducts] = useState(fixedProducts)
+  const [products, setProducts] = useState([...fixedProducts])
+  const defaultProducts = fixedProducts
 
   function orderProducts(orderedProducts: Product[]) {
     return setProducts(orderedProducts)
+  }
+
+  function clearFilter() {
+    return setProducts([...defaultProducts])
+
   }
 
   return (
@@ -50,7 +56,7 @@ export function App() {
       </header>
       <div className="calcHeight max-w-4xl m-auto px-4 pb-4 flex flex-col mx-auto">
         <Header onCreateNewProduct={setProducts} products={products} />
-        <Filter products={products} onOrderProducts={orderProducts} />
+        <Filter products={products} onClearFilter={clearFilter} onOrderProducts={orderProducts} />
         <div className="tableWrapper border rounded-md shadow-sm overflow-auto">
           <Table>
             <TableHeader>
