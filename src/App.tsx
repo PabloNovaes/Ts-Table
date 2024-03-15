@@ -39,18 +39,19 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <header className="h-[60px] border-b flex items-center px-4 justify-between">
+      <header className="h-[60px] border-b">
+        <div className="max-w-4xl h-full mx-auto flex items-center px-4 justify-between">
+          <SwitchTheme />
+          <h1 className="text-secondary-foreground text-2xl font-extrabold">
+            <span className="text-blue-600">Ts</span>Table
+          </h1>
 
-        <SwitchTheme />
-        <h1 className="text-secondary-foreground text-2xl font-extrabold">
-          <span className="text-blue-600">Ts</span>Table
-        </h1>
-
-        <div className="flex gap-5">
-          <Avatar className="">
-            <AvatarImage src="https://github.com/pablonovaes.png" alt="@shadcn" />
-            <AvatarFallback className="bg-zinc-700">PN</AvatarFallback>
-          </Avatar>
+          <div className="flex gap-5">
+            <Avatar className="">
+              <AvatarImage src="https://github.com/pablonovaes.png" alt="@shadcn" />
+              <AvatarFallback className="bg-zinc-700">PN</AvatarFallback>
+            </Avatar>
+          </div>
         </div>
 
       </header>

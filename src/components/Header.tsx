@@ -1,11 +1,11 @@
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
 import { PlusCircle } from "lucide-react"
+import { Button } from "./ui/button"
+import { Input } from "./ui/input"
 
+import { Product } from "@/data"
+import moment from 'moment-timezone'
 import { FormEvent, useState } from "react"
 import { Toaster, toast } from "sonner"
-import { Product } from "@/data";
-import moment from 'moment-timezone'
 
 moment.tz.setDefault("America/Sao_Paulo")
 
@@ -49,7 +49,7 @@ export function Header({ onCreateNewProduct, products }: HeaderProps) {
     return (
         <>
             <form onSubmit={(event) => createNewProduct(event)}>
-                <header className="flex gap-2 w-full h-6 pt-4 mb-12 ">
+                <div className="flex gap-2 w-full h-6 pt-4 mb-12 ">
                     <Input required
                         placeholder="Product name"
                         value={newProduct.name}
@@ -74,13 +74,9 @@ export function Header({ onCreateNewProduct, products }: HeaderProps) {
                         <PlusCircle />
                         Add
                     </Button>
-                </header>
+                </div>
             </form >
             <Toaster />
-
-            {/* <Input placeholder="Search by product"
-                className="mb-3"
-            /> */}
         </>
     )
 }
